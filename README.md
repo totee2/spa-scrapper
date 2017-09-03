@@ -1,5 +1,4 @@
-# spa-scrapper
-SPA scrapper
+# SPA-scrapper
 
 A simple tool for crawling the site of the SPA to retrieve all currently available dogs for adoption.
 The idea is to feed all the information to a Machine Learning algorithm to help and promote the adoption.
