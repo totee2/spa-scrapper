@@ -6,7 +6,7 @@ The idea is to feed all the information to a Machine Learning algorithm to help 
 # Installation
 To install spa-scrapper, just create a virtualenv and install the requirements
 ```bash
-$ cd SPA
+$ cd spa-scrapper
 $ virtualenv venv
 $ pip install -r requirements.txt
 ```
@@ -16,7 +16,7 @@ $ pip install -r requirements.txt
 Due to the fair amount of new dogs every day, this script is recommended to run at least once a day.
 
 ```bash
-$ cd SPA
+$ cd spa-scrapper
 $ source venv/bin/activate
 $ cd spa
 $ scrapy crawl dogs -o output.json
