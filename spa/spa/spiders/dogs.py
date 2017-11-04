@@ -14,8 +14,11 @@ class DogsSpider(scrapy.Spider):
         results = response.xpath('//div[@class="block-result-search "]')
 
         for result in results:
-            url = result.xpath('.//span[@class="refuge-name"]/a/@href').extract()[1]
-            print("URL: ", url)
+            url = result.xpath('.//span[@class="refuge-name"]/a/@href').extract()
+            if len(url) > 1:
+                url = url[1]
+            else:
+                continue
             img = result.xpath('.//img/@src').extract_first()
             short_name = result.xpath('.//div[@class="field-item even"]/text()').extract_first()
             refuge_name = result.xpath('.//span[@class="refuge-name"]/a/text()').extract_first()
@@ -25,8 +28,9 @@ class DogsSpider(scrapy.Spider):
             yield details
 
         relative_next_url = response.xpath('//li[@class="pager-next"]/a/@href').extract_first()
-        absolute_next_url = "https://www.la-spa.fr" + relative_next_url
-        yield Request(absolute_next_url, callback=self.parse)
+        if relative_next_url is not None:
+            absolute_next_url = "https://www.la-spa.fr" + relative_next_url
+            yield Request(absolute_next_url, callback=self.parse)
 
     def parse_doggo(self, response):
         name = response.xpath('//div[@class="field field-name-field-esp-ce field-type-list-text field-label-inline clearfix"]/div[@class="field-items"]/text()').extract_first()
