@@ -8,7 +8,7 @@ To install spa-scrapper, just create a virtualenv and install the requirements
 ```bash
 $ cd spa-scrapper
 $ virtualenv venv
-$ source venv
+$ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
