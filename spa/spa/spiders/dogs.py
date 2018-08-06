@@ -8,9 +8,11 @@ from spa.items import SpaItem
 class SpeciesSpider(scrapy.Spider):
     name = 'crawlSpecies'
     allowed_domains = ['la-spa.fr']
+    species = ''
 
-    def __init__(self, url='', **kwargs):
+    def __init__(self, url='', species='', **kwargs):
         self.start_urls = [url]
+        self.species = species
         super(SpeciesSpider, self).__init__(**kwargs)
 
     def parse(self, response):
@@ -43,7 +45,10 @@ class SpeciesSpider(scrapy.Spider):
         birthday = response.xpath('//div[@class="field field-name-field-date-naissance field-type-text field-label-inline clearfix"]/div[@class="field-items"]/div/text()').extract_first()
         description = response.xpath('//div[@class="field field-name-body field-type-text-with-summary field-label-hidden"]/div/div/p/text()').extract_first()
 
-        image_array = response.xpath('//div[@class="content col-xs-12 col-sm-8 left-bar cat"]//img[contains(@src, "itok")]/@src').extract()
+        if self.species == 'gato':
+            image_array = response.xpath('//div[@class="content col-xs-12 col-sm-8 left-bar cat"]//img[contains(@src, "itok")]/@src').extract()
+        elif self.species == 'dogo':
+                image_array = response.xpath('//div[@class="content col-xs-12 col-sm-8 left-bar dog"]//img[contains(@src, "itok")]/@src').extract()
 
         url = response.meta.get('URL')
         img = response.meta.get('img')
